@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements TransactionEvents
         new Thread(() -> {
             try {
                 HttpURLConnection uc = (HttpURLConnection)
-                        (new URL("http://localhost:8080/api/v1/title").openConnection());
+                        (new URL("https://www.iu3.bmstu.ru/OpenCW/PublicIndex?course=rpo&page=Part2").openConnection());
                 InputStream inputStream = uc.getInputStream();
                 String html = IOUtils.toString(inputStream);
                 String title = getPageTitle(html);

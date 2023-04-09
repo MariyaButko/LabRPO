@@ -1,22 +1,20 @@
 package com.example.backend.models;
-
-
-
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
-//import javax.persistence.*;
-
 @Entity
-@Table(name = "countries")
+
+@Table(name = "artists")
 @Access(AccessType.FIELD)
-public class Country {
-    public Country() { }
-    public Country(Long id) {
+public class Artist {
+    public Artist() {
+    }
+
+    public Artist(Long id) {
         this.id = id;
     }
 
@@ -25,16 +23,20 @@ public class Country {
     @Column(name = "id", updatable = false, nullable = false)
     public long id;
 
-
     @Column(name = "name", nullable = false, unique = true)
     public String name;
 
+    @ManyToOne()
+    @JoinColumn(name = "countryid")
+    public Country country;
+
+    @Column(name = "age", nullable = false)
+    public String age;
+
     @JsonIgnore
-    @OneToMany(mappedBy = "country")
-    public List<Artist> artists = new ArrayList<Artist>();
-
-
-
+    @OneToMany(mappedBy = "artist")
+    public List<Painting>
+            paintings = new ArrayList<>();
 
 
 }

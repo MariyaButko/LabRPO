@@ -1,17 +1,16 @@
 package com.example.backend.controllers;
-import com.example.backend.repositories.CountryRepository;
-import com.example.backend.models.Country;
+
+import com.example.backend.models.Artist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.example.backend.models.Country;
+import com.example.backend.repositories.CountryRepository;
 import org.springframework.web.server.ResponseStatusException;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -24,31 +23,33 @@ public class CountryController {
     getAllCountries() {
         return countryRepository.findAll();
     }
+    @GetMapping("/countries/{id}/artists")
+    public ResponseEntity<List<Artist>> getCountryArtists(@PathVariable(value = "id") Long countryId) {
+        Optional<Country> cc = countryRepository.findById(countryId);
+        if (cc.isPresent()) {
+            return ResponseEntity.ok(cc.get().artists);
+        }
+        return ResponseEntity.ok(new ArrayList<Artist>());
+    }
 
-   /* @PostMapping("/countries")
-    public ResponseEntity<Object> createCountry(@RequestBody Country country) {
-        Country nc = countryRepository.save(country);
-        return new ResponseEntity<Object>(nc, HttpStatus.OK);*/
-   @PostMapping("/countries")
-   public ResponseEntity<Object> createCountry(@RequestBody Country country)
-           throws Exception {
-       try {
-           Country nc = countryRepository.save(country);
-           return new ResponseEntity<Object>(nc, HttpStatus.OK);
-       }
-       catch(Exception ex) {
-           String error;
-           if (ex.getMessage().contains("countries.name_UNIQUE"))
-               error = "countyalreadyexists";
-           else
-               error = "undefinederror";
-           Map<String, String>
-                   map =  new HashMap<>();
-           map.put("error", error);
-
-           return ResponseEntity.ok(map);
-       }
-   }
+    @PostMapping("/countries")
+    public ResponseEntity<Object> createCountry(@RequestBody Country country)
+            throws Exception {
+        try {
+            Country nc = countryRepository.save(country);
+            return new ResponseEntity<Object>(nc, HttpStatus.OK);
+        } catch (Exception ex) {
+            String error;
+            if (ex.getMessage().contains("countries.name_UNIQUE"))
+                error = "countyalreadyexists";
+            else
+                error = "undefinederror";
+            Map<String, String>
+                    map = new HashMap<>();
+            map.put("error", error);
+            return ResponseEntity.ok(map);
+        }
+    }
 
     @PutMapping("/countries/{id}")
     public ResponseEntity<Country> updateCountry(@PathVariable(value = "id") Long countryId,
@@ -66,6 +67,7 @@ public class CountryController {
         }
     }
 
+
     @DeleteMapping("/countries/{id}")
     public ResponseEntity<Object> deleteCountry(@PathVariable(value = "id") Long countryId) {
         Optional<Country>
@@ -80,5 +82,7 @@ public class CountryController {
             resp.put("deleted", Boolean.FALSE);
         return ResponseEntity.ok(resp);
     }
+
+
 
 }
