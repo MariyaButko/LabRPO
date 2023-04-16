@@ -1,22 +1,21 @@
 package com.example.backend.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.lang.annotation.ElementType;
+import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.time.LocalDateTime;
 
 @Entity
-
 @Table(name = "users")
 @Access(AccessType.FIELD)
 public class User {
 
-    public User() {
-    }
-
+    public User() { }
     public User(Long id) {
         this.id = id;
     }
@@ -26,19 +25,21 @@ public class User {
     @Column(name = "id", updatable = false, nullable = false)
     public long id;
 
-    @Column(name = "login", unique = true, nullable = false)
+    @Column(name = "login", updatable = false, nullable = false)
     public String login;
 
+    @Column(name = "email", updatable = false, nullable = false)
+    public String email;
 
     @JsonIgnore
     @Column(name = "password")
     public String password;
-    @Column(name = "email", unique = true, nullable = false)
-    public String email;
+
     @JsonIgnore
     @Column(name = "salt")
     public String salt;
 
+    @JsonIgnore()
     @Column(name = "token")
     public String token;
 
@@ -57,7 +58,4 @@ public class User {
         this.museums.remove(m);
         m.users.remove(this);
     }
-
-
-
 }
