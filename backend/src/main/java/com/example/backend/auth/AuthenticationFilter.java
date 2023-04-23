@@ -33,8 +33,7 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
                                                 HttpServletResponse httpServletResponse) throws AuthenticationException,
             IOException, ServletException {
 
-        Enumeration
-                headerNames = httpServletRequest.getHeaderNames();
+
         String token= httpServletRequest.getHeader(AUTHORIZATION);
         if (token != null) {
             token = StringUtils.removeStart(token, "token").trim();

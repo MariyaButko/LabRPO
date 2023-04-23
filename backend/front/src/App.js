@@ -5,6 +5,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import NavigationBar from "./components/NavigationBar";
 import Home from "./components/Home";
+import Login from "./components/Login";
+
 
 function App() {
     return (
@@ -16,9 +18,12 @@ function App() {
                         <Route path="home" element={<Home />}/>
                     </Routes>
                 </div>
+                <Login/>
             </BrowserRouter>
         </div>
     );
+
+
 }
 
 export default App;
