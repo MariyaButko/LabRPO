@@ -47,6 +47,7 @@ import MyAccountComponent from "./comp/MyAccountComponent";
 import UserListComponent from "./ComponentLists/UserListComponent";
 import PaintingsListComponent from "./ComponentLists/PaintingListComponent";
 import PaintingComponent from "./comp/PaintingComponent";
+import PaintingListComponent from "./ComponentLists/PaintingListComponent";
 
 const ProtectedRoute = ({children}) => {
     let user = Utils.getUser();
@@ -78,6 +79,8 @@ const App = props => {
                             <Route path="artists/:id" element={<ProtectedRoute><ArtistComponent /></ProtectedRoute>}/>
                             <Route path="museums" element={<ProtectedRoute><MuseumListComponent/></ProtectedRoute>}/>
                             <Route path="museums/:id" element={<ProtectedRoute><MuseumComponent /></ProtectedRoute>}/>
+                            <Route path="paintings" element={<ProtectedRoute><PaintingListComponent/></ProtectedRoute>}/>
+                            <Route path="paintings/:id" element={<ProtectedRoute><PaintingComponent /></ProtectedRoute>}/>
 
                             <Route path="users" element={<ProtectedRoute><UserListComponent/></ProtectedRoute>}/>
 

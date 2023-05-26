@@ -124,27 +124,6 @@ class BackendService {
         return axios.post(`${API_URL}/deleteusers`, users);
     }
 
-    /* Paintings */
-
-    retrieveAllPaintings(page, limit) {
-        return axios.get(`${API_URL}/paintings?page=${page}&limit=${limit}`);
-    }
-
-    retrievePainting(id) {
-        return axios.get(`${API_URL}/painting/${id}`);
-    }
-
-    createPainting(painting) {
-        return axios.post(`${API_URL}/paintings`, painting);
-    }
-
-    updatePainting(painting) {
-        return axios.put(`${API_URL}/paintings/${painting.id}`, painting);
-    }
-
-    deletePaintings(paintings) {
-        return axios.post(`${API_URL}/deletepaintings`, paintings);
-    }
 
 
 }
