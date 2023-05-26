@@ -1,14 +1,12 @@
 package com.example.backend.models;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
-import java.lang.annotation.ElementType;
-import java.lang.reflect.Method;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -21,32 +19,33 @@ public class User {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     public long id;
 
-    @Column(name = "login", updatable = false, nullable = false)
-    public String login;
+    @Transient
+    public String np;
 
-    @Column(name = "email", updatable = false, nullable = false)
-    public String email;
+    @Column(name = "login", nullable = false, unique = true)
+    public String login;
 
     @JsonIgnore
     @Column(name = "password")
     public String password;
 
+    @Column(name = "email", nullable = false, unique = true)
+    public String email;
+
     @JsonIgnore
     @Column(name = "salt")
     public String salt;
 
-    @JsonIgnore()
     @Column(name = "token")
     public String token;
 
     @Column(name = "activity")
     public LocalDateTime activity;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users", cascade = CascadeType.REMOVE)
     public Set<Museum> museums = new HashSet<>();
 
     public void addMuseum(Museum m) {

@@ -1,3 +1,4 @@
+
 package com.example.backend.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import java.util.Arrays;
 
 import static com.example.backend.auth.JwtDsl.jwtDsl;
 import static org.springframework.security.config.Customizer.withDefaults;
+
 
 @Configuration
 @EnableWebSecurity
@@ -71,6 +73,5 @@ public class SecurityConfiguration {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/auth/login", "/auth/logout");
     }
-
 
 }

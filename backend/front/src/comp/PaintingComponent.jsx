@@ -5,15 +5,19 @@ import{faChevronLeft, faSave} from "@fortawesome/free-solid-svg-icons";
 import {Form} from "react-bootstrap";
 import { useParams, useNavigate } from 'react-router-dom';
 
-const CountryComponent = props => {
+const PaintingComponent = props => {
 
     const [hidden, setHidden] = useState(false);
     const navigate = useNavigate();
     const [name, setName] = useState("")
+    const [museum, setMuseum] = useState("")
     const [id, setId] = useState(useParams().id)
 
     const updateName = (event) => {
         setName(event.target.value)
+    }
+    const updateMuseum = (event) => {
+        setMuseum(event.target.value)
     }
 
     const onSubmit = (event) => {
@@ -21,22 +25,22 @@ const CountryComponent = props => {
         event.stopPropagation();
         let err = null;
         if (name === ""){
-            err = "Название страны должно быть указано"
+            err = "Название картины должно быть указано"
         }
-        let countr = {name: name, id: id}
+        let painting = {name: name, id: id}
         if (parseInt(id) == -1) {
-            BackendService.createCountry(countr)
+            BackendService.createPainting(painting)
                 .catch(()=>{})
         }
         else {
-            BackendService.updateCountry(countr)
+            BackendService.updatePainting(painting)
                 .catch(()=>{})
         }
-        navigateToCountries()
+        navigateToPaintings()
     }
 
-    const navigateToCountries = () => {
-        navigate('/countries')
+    const navigateToPaintings= () => {
+        navigate('/paintings')
     }
 
     if (hidden)
@@ -47,21 +51,31 @@ const CountryComponent = props => {
                 <h3>Страна</h3>
                 <button
                     className="btn btn-outline-secondary ml-auto"
-                    onClick={()=>  navigateToCountries() }><FontAwesomeIcon
+                    onClick={()=>  navigateToPaintings() }><FontAwesomeIcon
                     icon={faChevronLeft}/>{' '}Назад</button>
             </div>
             <Form onSubmit={onSubmit}>
                 <Form.Group>
                     <Form.Label>Название</Form.Label>
 
+
                     <Form.Control
                         type="text"
-                        placeholder="Введите название страны"
+                        placeholder="Введите название картины"
                         onChange={updateName}
                         value={name}
                         name="name"
                         autoComplete="off"/>
+                    <Form.Label>Музей</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Введите название музея"
+                        onChange={updateMuseum}
+                        value={name}
+                        name="name"
+                        autoComplete="off"/>
                 </Form.Group>
+
                 <button
                     className="btn btn-outline-secondary"
                     type="submit"><FontAwesomeIcon
@@ -72,4 +86,4 @@ const CountryComponent = props => {
 
 }
 
-export default CountryComponent;
+export default PaintingComponent;

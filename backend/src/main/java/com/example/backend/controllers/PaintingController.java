@@ -1,7 +1,15 @@
 package com.example.backend.controllers;
+import com.example.backend.models.Artist;
+import com.example.backend.models.Country;
 import com.example.backend.models.Painting;
+import com.example.backend.repositories.ArtistRepository;
 import com.example.backend.repositories.PaintingRepository;
+import com.example.backend.tools.DataValidationException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,17 +19,19 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
+
 @RestController
+@CrossOrigin("")
 @RequestMapping("/api/v1")
 
 public class PaintingController {
     @Autowired
     PaintingRepository paintingRepository;
 
+
     @GetMapping("/paintings")
-    public List
-    getAllPaintings() {
-        return paintingRepository.findAll();
+    public Page<Painting> getAllArtists(@RequestParam("page") int page, @RequestParam("limit") int limit) {
+        return paintingRepository.findAll(PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "name")));
     }
     @PostMapping("/paintings")
     public ResponseEntity<Object> createPainting(@RequestBody Painting painting)

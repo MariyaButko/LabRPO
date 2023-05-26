@@ -1,3 +1,4 @@
+
 package com.example.backend.auth;
 
 import com.example.backend.repositories.UserRepository;
@@ -58,4 +59,5 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
                 AuthorityUtils.createAuthorityList("USER"));
         return user;
     }
+
 }
