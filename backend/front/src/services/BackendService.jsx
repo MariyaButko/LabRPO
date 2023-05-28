@@ -95,6 +95,8 @@ class BackendService {
     }
 
     updatePainting(painting) {
+        console.log(painting)
+        console.log(painting.id)
         return axios.put(`${API_URL}/paintings/${painting.id}`, painting);
     }
 

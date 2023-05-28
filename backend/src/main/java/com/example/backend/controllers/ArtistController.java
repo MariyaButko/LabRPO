@@ -31,6 +31,7 @@ public class ArtistController {
                 Country countr = cc.get();
                 if (cName.equalsIgnoreCase(countr.name)){
                     id = index;
+                    break;
                 }
             }
         }
@@ -93,9 +94,17 @@ public class ArtistController {
                                                @RequestBody Artist artist) {
         Artist artistt = null;
         Optional<Artist> cc = artistRepository.findById(artistId);
+        long ind = findByName(artist.country.name);
+        if (ind > 251) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "country not found");
+        }
+        Optional<Country>
+                countr = countryRepository.findById(ind);
+        countr.ifPresent(country -> artist.country = country);
         if (cc.isPresent()) {
             artistt = cc.get();
             artistt.name = artist.name;
+            artistt.country = artist.country;
             artistt.age = artist.age;
             System.out.println(artistt.country.name);
             artistRepository.save(artistt);

@@ -42,7 +42,9 @@ const MuseumListComponent = props => {
         const isChecked = e.target.checked;
         setChecked(isChecked);
     }
-
+    const updateMuseumClicked = id => {
+        navigate(`/museums/${id}`)
+    }
     const deleteMuseumsClicked = () => {
         let x = [];
         museums.map((t, idx) => {
@@ -153,7 +155,7 @@ const MuseumListComponent = props => {
                                         <div className="btn-group  ms-auto">
                                             <button className="btn btn-outline-secondary btn-sm btn-toolbar"
                                                     onClick={() =>
-                                                        updateCountryClicked(museum.id)}>
+                                                        updateMuseumClicked(museum.id)}>
                                                 <FontAwesomeIcon icon={faEdit} fixedWidth />
                                             </button>
                                         </div>
