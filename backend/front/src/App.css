@@ -13,6 +13,12 @@
   }
 }
 
+.form-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -37,6 +43,9 @@
   }
 }
 
+.form-control {
+  margin: 20px 0;
+}
 
 .wrapper {
   display: flex;
@@ -61,7 +70,7 @@
 
 .page-item.active .page-link  {
   background-color: #6c757d;
-  color: white;
+  color: pink;
   border-color: #6c757d;
 }
 

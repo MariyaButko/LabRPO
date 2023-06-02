@@ -82,6 +82,7 @@ const CountryListComponent = props => {
             .finally(() => setChecked(false))
     }
 
+
     const updateCountryClicked = id => {
         navigate(`/countries/${id}`)
     }

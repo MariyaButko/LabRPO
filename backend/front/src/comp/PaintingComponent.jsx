@@ -42,7 +42,9 @@ const PaintingComponent = props => {
         let painting = { id: id, name: name,  artist: {"id": "20", "name": artistName}, museum: {"id":"20", "name": museumName}, year: year}
         if (parseInt(id) === -1) {
             BackendService.createPainting(painting)
-                .catch(() => { })
+                .catch(() => { }).finally(() => {
+                navigateToPaintings()
+            })
         }
         else {
             let painting = {id: id, name: name,  artist: {"id": "20", "name": artistName}, museum: {"id":"20", "name": museumName}, year: year}
@@ -50,7 +52,7 @@ const PaintingComponent = props => {
             BackendService.updatePainting(painting)
                 .catch(() => { })
         }
-        navigateToPaintings()
+    //    navigateToPaintings()
     }
 
     const navigateToPaintings = () => {
@@ -68,7 +70,7 @@ const PaintingComponent = props => {
                     onClick={() => navigateToPaintings()}><FontAwesomeIcon
                     icon={faChevronLeft} />{' '}Назад</button>
             </div>
-            <Form onSubmit={onSubmit}>
+            <Form className="form-list" onSubmit={onSubmit}>
                 <Form.Group>
                     <Form.Label>Название</Form.Label>
 
